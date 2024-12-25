@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>Main.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Main.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">SortingAndSearching</span><span class="s2">.</span><span class="s1">StickLengths</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.*;</span>
+
+<span class="s0">public class </span><span class="s1">Main </span><span class="s2">{</span>
+    <span class="s0">static class </span><span class="s1">FastReader</span><span class="s2">{</span>
+        <span class="s1">BufferedReader br</span><span class="s2">;</span>
+        <span class="s1">StringTokenizer st</span><span class="s2">;</span>
+        <span class="s0">public </span><span class="s1">FastReader</span><span class="s2">(){</span>
+            <span class="s1">br</span><span class="s2">=</span><span class="s0">new </span><span class="s1">BufferedReader</span><span class="s2">(</span><span class="s0">new </span><span class="s1">InputStreamReader</span><span class="s2">(</span><span class="s1">System</span><span class="s2">.</span><span class="s1">in</span><span class="s2">));</span>
+        <span class="s2">}</span>
+        <span class="s1">String next</span><span class="s2">(){</span>
+            <span class="s0">while</span><span class="s2">(</span><span class="s1">st</span><span class="s2">==</span><span class="s0">null </span><span class="s2">|| !</span><span class="s1">st</span><span class="s2">.</span><span class="s1">hasMoreTokens</span><span class="s2">()){</span>
+                <span class="s0">try </span><span class="s2">{</span>
+                    <span class="s1">st</span><span class="s2">=</span><span class="s0">new </span><span class="s1">StringTokenizer</span><span class="s2">(</span><span class="s1">br</span><span class="s2">.</span><span class="s1">readLine</span><span class="s2">());</span>
+                <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">IOException e</span><span class="s2">) {</span>
+                    <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+            <span class="s0">return </span><span class="s1">st</span><span class="s2">.</span><span class="s1">nextToken</span><span class="s2">();</span>
+        <span class="s2">}</span>
+        <span class="s0">int </span><span class="s1">nextInt</span><span class="s2">(){</span>
+            <span class="s0">return </span><span class="s1">Integer</span><span class="s2">.</span><span class="s1">parseInt</span><span class="s2">(</span><span class="s1">next</span><span class="s2">());</span>
+        <span class="s2">}</span>
+        <span class="s0">long </span><span class="s1">nextLong</span><span class="s2">(){</span>
+            <span class="s0">return </span><span class="s1">Long</span><span class="s2">.</span><span class="s1">parseLong</span><span class="s2">(</span><span class="s1">next</span><span class="s2">());</span>
+        <span class="s2">}</span>
+        <span class="s0">double </span><span class="s1">nextDouble</span><span class="s2">(){</span>
+            <span class="s0">return </span><span class="s1">Double</span><span class="s2">.</span><span class="s1">parseDouble</span><span class="s2">(</span><span class="s1">next</span><span class="s2">());</span>
+        <span class="s2">}</span>
+        <span class="s1">String nextLine</span><span class="s2">(){</span>
+            <span class="s1">String str</span><span class="s2">=</span><span class="s3">&quot;&quot;</span><span class="s2">;</span>
+            <span class="s0">try </span><span class="s2">{</span>
+                <span class="s1">str</span><span class="s2">=</span><span class="s1">br</span><span class="s2">.</span><span class="s1">readLine</span><span class="s2">().</span><span class="s1">trim</span><span class="s2">();</span>
+            <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+                <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+            <span class="s2">}</span>
+            <span class="s0">return </span><span class="s1">str</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+    <span class="s0">static class </span><span class="s1">FastWriter </span><span class="s2">{</span>
+        <span class="s0">private final </span><span class="s1">BufferedWriter bw</span><span class="s2">;</span>
+
+        <span class="s0">public </span><span class="s1">FastWriter</span><span class="s2">() {</span>
+            <span class="s0">this</span><span class="s2">.</span><span class="s1">bw </span><span class="s2">= </span><span class="s0">new </span><span class="s1">BufferedWriter</span><span class="s2">(</span><span class="s0">new </span><span class="s1">OutputStreamWriter</span><span class="s2">(</span><span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">));</span>
+        <span class="s2">}</span>
+
+        <span class="s0">public void </span><span class="s1">print</span><span class="s2">(</span><span class="s1">Object object</span><span class="s2">) </span><span class="s0">throws </span><span class="s1">IOException </span><span class="s2">{</span>
+            <span class="s1">bw</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s3">&quot;&quot; </span><span class="s2">+ </span><span class="s1">object</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+        <span class="s0">public void </span><span class="s1">println</span><span class="s2">(</span><span class="s1">Object object</span><span class="s2">) </span><span class="s0">throws </span><span class="s1">IOException </span><span class="s2">{</span>
+            <span class="s1">print</span><span class="s2">(</span><span class="s1">object</span><span class="s2">);</span>
+            <span class="s1">bw</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+        <span class="s0">public void </span><span class="s1">close</span><span class="s2">() </span><span class="s0">throws </span><span class="s1">IOException </span><span class="s2">{</span>
+            <span class="s1">bw</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+        <span class="s0">try </span><span class="s2">{</span>
+            <span class="s1">FastReader in</span><span class="s2">=</span><span class="s0">new </span><span class="s1">FastReader</span><span class="s2">();</span>
+            <span class="s1">FastWriter out </span><span class="s2">= </span><span class="s0">new </span><span class="s1">FastWriter</span><span class="s2">();</span>
+            <span class="s0">int </span><span class="s1">n</span><span class="s2">=</span><span class="s1">in</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+            <span class="s0">int</span><span class="s2">[]</span><span class="s1">sticks</span><span class="s2">= </span><span class="s0">new int</span><span class="s2">[</span><span class="s1">n</span><span class="s2">];</span>
+            <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">i</span><span class="s2">=</span><span class="s4">0</span><span class="s2">; </span><span class="s1">i</span><span class="s2">&lt;</span><span class="s1">n </span><span class="s2">;</span><span class="s1">i</span><span class="s2">++) </span><span class="s1">sticks</span><span class="s2">[</span><span class="s1">i</span><span class="s2">]= </span><span class="s1">in</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">();</span>
+            <span class="s1">Arrays</span><span class="s2">.</span><span class="s1">sort</span><span class="s2">(</span><span class="s1">sticks</span><span class="s2">);</span>
+            <span class="s0">int </span><span class="s1">mid</span><span class="s2">=</span><span class="s1">sticks</span><span class="s2">[</span><span class="s1">n</span><span class="s2">/</span><span class="s4">2</span><span class="s2">];</span>
+            <span class="s0">long </span><span class="s1">res </span><span class="s2">= </span><span class="s4">0</span><span class="s2">;</span>
+            <span class="s0">long </span><span class="s1">min2</span><span class="s2">= </span><span class="s4">0</span><span class="s2">;</span>
+            <span class="s0">for</span><span class="s2">(</span><span class="s0">int </span><span class="s1">i</span><span class="s2">=</span><span class="s4">0</span><span class="s2">;</span><span class="s1">i</span><span class="s2">&lt;</span><span class="s1">n</span><span class="s2">;</span><span class="s1">i</span><span class="s2">++){</span>
+                <span class="s1">res</span><span class="s2">+=</span><span class="s1">Math</span><span class="s2">.</span><span class="s1">abs</span><span class="s2">(</span><span class="s1">sticks</span><span class="s2">[</span><span class="s1">i</span><span class="s2">]-</span><span class="s1">mid</span><span class="s2">);</span>
+            <span class="s2">}</span>
+            <span class="s1">out</span><span class="s2">.</span><span class="s1">print</span><span class="s2">(</span><span class="s1">res</span><span class="s2">);</span>
+            <span class="s1">out</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+            <span class="s0">return</span><span class="s2">;</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span></pre>
+</body>
+</html>
