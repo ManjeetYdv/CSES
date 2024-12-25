@@ -2,20 +2,20 @@ package LeetCoode;
 import java.util.*;
 public class que3203 {
     public int diameter(List<List<Integer>> tree, int curr, int par, int[]diameter){
-        int[]depth=new int[3];
-        int ch=0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
         for(int child : tree.get(curr)){
             if(child!=par){
-                depth[ch++]=diameter(tree, child, curr, diameter);
+                int d=diameter(tree, child, curr, diameter);
+                pq.add(d);
+                if(pq.size()>2) pq.poll();
             }
         }
-        int max=depth[0];
-        max=Math.max(max, depth[0]+depth[1]);
-        max=Math.max(max, depth[1]+depth[2]);
-        max=Math.max(max, depth[0]+depth[2]);
-        diameter[0]=Math.max(max, diameter[0]); //updating diameter
+        if(pq.size()==0) return 1; //leafe node
+        int maxChild1=pq.poll();
+        int maxChild2= (pq.isEmpty()?0 : pq.poll());
 
-        return 1+Math.max(depth[0], Math.max(depth[1], depth[2]));
+        diameter[0]=Math.max(diameter[0],maxChild1+maxChild2);
+        return 1+Math.max(maxChild1, maxChild2);
     }
     public int minimumDiameterAfterMerge(int[][] edges1, int[][] edges2) {
         List<List<Integer>> tree1= new ArrayList<>();
