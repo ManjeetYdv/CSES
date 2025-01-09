@@ -37,7 +37,8 @@ public class Stringhash {
         long diff=endHash-startHash;
 //        Modular Division and Fermat's Little Theorem
 //        In modular arithmetic, division is not directly defined because modular arithmetic operates
-//        within a finite set of integers. To perform division, we use the modular multiplicative inverse.
+////        within a finite set of integers. To perform division, we use the modular multiplicative inverse.
+//        a^-1 =a^m-2 mod m .. m is prime
         long modInv= modInverse(pDivide, mod);
         long subStringHash= (diff*modInv)%mod;
         return subStringHash;
