@@ -34,7 +34,7 @@ public class Stringhash {
 
 
         }
-        long diff=endHash-startHash;
+        long diff=(endHash-startHash+mod)%mod;
 //        Modular Division and Fermat's Little Theorem
 //        In modular arithmetic, division is not directly defined because modular arithmetic operates
 ////        within a finite set of integers. To perform division, we use the modular multiplicative inverse.
@@ -64,7 +64,7 @@ public class Stringhash {
     public static void main(String[] args) {
         String s="de";
         System.out.println(hash(s));
-        s=new String("fde");
-        System.out.println(hashSubString(s,1,2));
+        s=new String("de");
+        System.out.println(hashSubString(s,0,1));
     }
 }
