@@ -1,67 +1,10 @@
-//package SortingAndSearching.slidingWindowMedian;
+package SortingAndSearching.slidingWindowMedian;
 
-import java.io.*;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 public class Main {
-    static class FastReader{
-        BufferedReader br;
-        StringTokenizer st;
-        public FastReader(){
-            br=new BufferedReader(new InputStreamReader(System.in));
-        }
-        String next(){
-            while(st==null || !st.hasMoreTokens()){
-                try {
-                    st=new StringTokenizer(br.readLine());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return st.nextToken();
-        }
-        int nextInt(){
-            return Integer.parseInt(next());
-        }
-        long nextLong(){
-            return Long.parseLong(next());
-        }
-        double nextDouble(){
-            return Double.parseDouble(next());
-        }
-        String nextLine(){
-            String str="";
-            try {
-                str=br.readLine().trim();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return str;
-        }
-    }
-    static class FastWriter {
-        private final BufferedWriter bw;
-
-        public FastWriter() {
-            this.bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        }
-
-        public void print(Object object) throws IOException {
-            bw.append("" + object);
-        }
-
-        public void println(Object object) throws IOException {
-            print(object);
-            bw.append("\n");
-        }
-
-        public void close() throws IOException {
-            bw.close();
-        }
-    }
     public static void balance(TreeMap<Integer, Integer>left, TreeMap<Integer, Integer> right, int[]size){
         int leftEl=size[0];
         int rightEl=size[1];
@@ -121,7 +64,7 @@ public class Main {
     public static int getMedian(TreeMap<Integer, Integer> left){
         return left.lastKey();
     }
-    public static void medianSlidingWindow(int[] nums, int k, FastWriter out) throws Exception{
+    public static void medianSlidingWindow(int[] nums, int k) {
         TreeMap<Integer, Integer> left = new TreeMap<>();
         TreeMap<Integer, Integer> right = new TreeMap<>();
         int []size = new int[2];
@@ -132,7 +75,7 @@ public class Main {
         int []res= new int[nums.length-k+1];
         for(int i=k-1;i<nums.length;i++){
             insert(nums[i], left, right, size);
-            out.print(getMedian(left)+" ");
+            System.out.print(getMedian(left)+" ");
             int removeEl = nums[i - k + 1];
             remove(removeEl, left, right, size);
         }
@@ -140,20 +83,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
-        try {
-            FastReader in=new FastReader();
-            FastWriter out = new FastWriter();
-            int n=in.nextInt();
-            int k=in.nextInt();
-            int[]nums=new int[n];
-            for(int i=0;i<n;i++){
-                nums[i]=in.nextInt();
-            }
-            medianSlidingWindow(nums, k , out);
-            out.close();
-        } catch (Exception e) {
-            return;
+        Scanner sc= new Scanner(System.in);
+        int n=sc.nextInt();
+        int k=sc.nextInt();
+        int[]nums= new int[n];
+        for(int i=0;i<n;i++){
+            nums[i]=sc.nextInt();
         }
+        medianSlidingWindow(nums, k);
     }
 }
