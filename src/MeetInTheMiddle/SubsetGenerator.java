@@ -27,7 +27,15 @@ public class SubsetGenerator {
 
         return subsets;
     }
-    git stat
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3};
+        List<List<Integer>> subsets = generateSubsets(arr);
+
+        // Print all subsets
+        for (List<Integer> subset : subsets) {
+            System.out.println(subset);
+        }
+    }
 
 
 }
