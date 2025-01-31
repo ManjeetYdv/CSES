@@ -3,60 +3,64 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+import java.util.Scanner;
+import java.util.*;
+
 public class Main {
-    public static  void inDfs(int node, int parent, int[] in, List<List<Integer>> tree){
+    private static void dfs1(int node, int par, List<List<Integer>> tree, int[]down){
         for(int child : tree.get(node)){
-            if(child!=parent){
-                inDfs(child, node, in, tree);
-                in[node]=Math.max(in[node], in[child]+1);
+            if(child!=par){
+                dfs1(child, node, tree, down);
+                down[node]=Math.max(down[node], 1+down[child]);
             }
         }
     }
-    public static void outDfs(int node, int parent, int[]out, int []in, List<List<Integer>> tree){
+    private static void dfs2(int node, int par, List<List<Integer>> tree, int[]down, int[]up){
         int max1=-1;
         int max2=-1;
+
         for(int child : tree.get(node)){
-            if(child==parent) continue;
-            if(in[child]>=max1){
-                max2=max1;
-                max1=in[child];
+            if(child!=par){
+                if(down[child]>=max1){
+                    max2=max1;
+                    max1=down[child];
+                }
+                else if(down[child]>max2) max2=down[child];
             }
-            else if(in[child]>max2) max2=in[child];
         }
 
-        for(int child: tree.get(node)){
-            if(child!=parent){
-                int use=(in[child]==max1? max2:max1);
-                out[child]=Math.max(out[node]+1, use+2);
-                outDfs(child, node, out, in, tree);
+        for(int child : tree.get(node)){
+            if(child!=par){
+                int use= (down[child]==max1) ? max2: max1;
+                up[child]=Math.max(1+up[node], 2+use);
+                dfs2(child, node, tree, down, up);
             }
         }
     }
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<List<Integer>> tree= new ArrayList<>();
-        int nodes=scanner.nextInt();
-        for(int i=0;i<=nodes;i++){
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();
+        List<List<Integer>> tree = new ArrayList<>();
+        for(int i=0;i<n;i++){
             tree.add(new ArrayList<>());
         }
 
-        for(int i=0;i<nodes-1;i++){
-            int u=scanner.nextInt();
-            int v=scanner.nextInt();
-            tree.get(u).add(v);
-            tree.get(v).add(u);
+        for(int i=0;i<n-1;i++){
+            int a=sc.nextInt();
+            int b=sc.nextInt();
+            a--;
+            b--;
+            tree.get(a).add(b);
+            tree.get(b).add(a);
         }
-        int[]in=new int[nodes+1];
-        int[]out=new int[nodes+1];
-
-        inDfs(1, -1, in, tree);
-        outDfs(1, -1, out, in, tree);
-
-        int[]ans=new int[nodes+1];
-        for(int i=1;i<=nodes;i++){
-            ans[i]=Math.max(in[i], out[i]);
-            System.out.print(ans[i]+" ");
+        int[]down=new int[n];
+        int[] up=new int[n];
+        dfs1(0, -1, tree, down);
+        dfs2(0, -1, tree, down, up);
+        for(int i=0;i<n;i++){
+            System.out.print(Math.max(down[i], up[i])+" ");
         }
+
     }
 }
-
