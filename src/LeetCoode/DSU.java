@@ -1,6 +1,6 @@
 //package LeetCoode;
 //
-//public class DSU {
+//class DSU {
 //    int[] parent;
 //    int[] size;
 //
@@ -30,8 +30,5 @@
 //            parent[parentQ]=parentP;
 //            size[parentP]+=size[parentQ];
 //        }
-//    }
-//    public static void main(String[] args) {
-//
 //    }
 //}
