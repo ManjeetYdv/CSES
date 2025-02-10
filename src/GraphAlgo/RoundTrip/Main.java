@@ -2,76 +2,64 @@ package GraphAlgo.RoundTrip;
 import java.util.*;
 
 public class Main {
-    private static int[] detectCycle(int node,  boolean []vis, List<List<Integer>>  graph, int level, Map<Integer, Integer> map, int[]parent){
-        map.put(node, level);
+    private static int[] cycle(int node, int par, List<List<Integer>>graph,int[]parent, boolean[]vis){
+        parent[node]=par;
         vis[node]=true;
-        level++;
-        for(int child : graph.get(node)){
-            if(!vis[child]){
-                parent[child]=node;
-                int[]a= detectCycle(child, vis, graph, level, map, parent);
-                if(a[1]>2) return a;
-            }
-            else  {
-                int firstOcc=map.get(child);
-                int length=level-firstOcc;
-             //   System.out.println("hello: "+child+" , length: "+length);
-                if(length>2){ //length 2 for child parent relation
-                    return new int[]{child, length, node}; //child is start of cycle and node is end of cycle and length is nodes in cycle
-                }
 
+        for(int neigh : graph.get(node)){
+            if(neigh==par) continue;
+            else if(!vis[neigh]){
+                int[]a = cycle(neigh, node, graph, parent, vis);
+                if(a[0]!=-1) return a;
             }
+            else return new int[]{neigh, node}; //start and end of cycle
         }
-        return new int[]{-1, -1, -1};
+        return new int[]{-1, -1};
     }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n=sc.nextInt();
-        int m=sc.nextInt();
+        int n = sc.nextInt();
+        int m = sc.nextInt();
 
         List<List<Integer>> graph = new ArrayList<>();
-        for(int i=0;i<n;i++) graph.add(new ArrayList<>());
-        for(int i=0;i<m;i++){
-            int a=sc.nextInt();
-            int b=sc.nextInt();
-            a--;b--;
+        for (int i = 0; i < n; i++) graph.add(new ArrayList<>());
+        for (int i = 0; i < m; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            a--;
+            b--;
             graph.get(a).add(b);
             graph.get(b).add(a);
         }
-        boolean[]vis = new boolean[n];
-        int[] thatCycleNode={-1, -1, -1};
-        int[]parent=new int[n];
-        for(int i=0;i<n;i++) parent[i]=i;
-        for(int i=0;i<n;i++){
+        boolean[] vis = new boolean[n];
+        int[] par = new int[n];
+        Arrays.fill(par, -1);
+        int[] cycle= {-1, -1};
+        for(int i = 0; i < n; i++){
             if(!vis[i]){
-                int[] nodeAndLength= detectCycle(i, vis, graph, 0, new HashMap<>(), parent);
-
-                if(nodeAndLength[1]>2) {
-                    thatCycleNode[0]=nodeAndLength[0];
-                    thatCycleNode[1]=nodeAndLength[1];
-                    thatCycleNode[2]=nodeAndLength[2];
+                int[] cycleTemp = cycle(i, -1, graph, par, vis);
+                if(cycleTemp[0]!=-1) {
+                    cycle=cycleTemp;
+                   // System.out.println(cycle[0]+" "+cycle[1]);
                     break;
                 }
             }
         }
-        if(thatCycleNode[0]==-1){
-            System.out.println("IMPOSSIBLE");
-        }
-        else{
-            int start=thatCycleNode[0];
-            int node=thatCycleNode[2]; //end node
-            System.out.println(thatCycleNode[1]+1);
-            List<Integer> path = new ArrayList<>();
-            path.add(start+1);
-            for(int i=0;i<thatCycleNode[1]-1;i++){
-                path.add(node+1);
-                node=parent[node];
+        if(cycle[0]!=-1) {
+            int start=cycle[0];
+            int end=cycle[1];
+            List<Integer> path= new ArrayList<>();
+            path.add(start);
+
+            while(end!=start){
+                path.add(end);
+                end=par[end];
             }
-            path.add(start+1);
-            Collections.reverse(path);
-            for(int el : path) System.out.print(el+" ");
+            path.add(start);
+            System.out.println(path.size());
+            for(int el : path) System.out.print((el+1)+" ");
         }
+        else System.out.println("IMPOSSIBLE");
     }
 }
 
