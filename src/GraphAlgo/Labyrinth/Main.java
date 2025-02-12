@@ -1,4 +1,4 @@
-//package GraphAlgo.Labyrinth;
+package GraphAlgo.Labyrinth;
 import java.util.*;
 
 public class Main {
